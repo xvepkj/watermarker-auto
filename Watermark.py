@@ -49,7 +49,7 @@ def copyright_apply(input_image_path,
  
  #get text width and heigth
  
- text = "© " + text + " "
+ text = " © " + text + " "
  text_w, text_h = drawing.textsize(text, font)
  
  pos = w - text_w - 50, (h - text_h) - 50
