@@ -6,3 +6,5 @@ Automatically add watermarks to a set of images
 ```
 python setup.py py2exe
 ```
+
+Paste the configuration to `dist` directory before running.

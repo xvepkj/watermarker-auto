@@ -7,13 +7,11 @@ from PIL import ImageFont
 import glob
 import os, json
 
-configDir = os.path.dirname(os.path.realpath(__file__))
-configFile = "config.json"
 config = None
 
 def loadConfig():
   try:
-    with open(configDir + "/" + configFile, "r") as read_file:
+    with open("config.json", "r") as read_file:
       global config
       config = json.load(read_file)
   except:
@@ -47,7 +45,7 @@ def copyright_apply(input_image_path,
  w, h = photo.size
 # make the image editable
  drawing = ImageDraw.Draw(photo)
- font = ImageFont.truetype("times.ttf", int(max(h,w)/50))
+ font = ImageFont.truetype(config["font"], int(max(h,w)/50))
  
  #get text width and heigth
  
@@ -63,6 +61,7 @@ def copyright_apply(input_image_path,
  c_text.putalpha(100)
  photo.paste(c_text, pos, c_text)
  photo.save(output_image_path)
+ print("DONE")
  
  
 folderPath = StringVar()
