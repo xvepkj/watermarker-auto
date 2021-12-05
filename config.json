@@ -3,5 +3,6 @@
         "Max Digital Photo",
         "   9891274827"
     ],
-    "font": "consola.ttf"
+    "font": "consola.ttf",
+    "font_size" : "50"
 }

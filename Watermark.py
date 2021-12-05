@@ -20,6 +20,7 @@ def loadConfig():
 loadConfig()
 
 watermark_text = "\n".join(config["watermark"])
+font_size = config["font_size"]
 
 gui = Tk()
 gui.geometry("400x100")
@@ -45,7 +46,7 @@ def copyright_apply(input_image_path,
  w, h = photo.size
 # make the image editable
  drawing = ImageDraw.Draw(photo)
- font = ImageFont.truetype(config["font"], int(max(h,w)/50))
+ font = ImageFont.truetype(config["font"], int(max(h,w)/font_size))
  
  #get text width and heigth
  
