@@ -5,7 +5,7 @@ Automatically add watermarks to a set of images
 
 > Note: You may want to change `config.json`
 ```
-python Watermarker.pyw
+python Watermarker.py
 ```
 
 ## Build
