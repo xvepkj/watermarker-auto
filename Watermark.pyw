@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
+from tkinter import messagebox
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
@@ -22,6 +23,9 @@ loadConfig()
 watermark_text = "\n".join(config["watermark"])
 font_size = config["font_size"]
 
+num_files = 0
+num_files_done = 0
+
 gui = Tk()
 gui.geometry("400x100")
 gui.title("WaterMark Adder")
@@ -32,37 +36,39 @@ def getFolderPath():
 def doStuff():
     input_image_path = folderPath.get()
     list = glob.glob(input_image_path + "/*.*")
+    num_files = len(list)
     output_folder = input_image_path + '_watermaked'
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
     for photo in list:
         images = photo.replace(input_image_path,output_folder)
         copyright_apply(photo, images, watermark_text)
-def copyright_apply(input_image_path,
- output_image_path,
- text):
- photo = Image.open(input_image_path)
- #Store image width and heigth
- w, h = photo.size
-# make the image editable
- drawing = ImageDraw.Draw(photo)
- font = ImageFont.truetype(config["font"], int(max(h,w)/font_size))
- 
- #get text width and heigth
- 
- text = " © " + text + " "
- text_w, text_h = drawing.textsize(text, font)
- 
- pos = w - text_w - 50, (h - text_h) - 50
- 
- c_text = Image.new('RGB', (text_w + 5, (text_h + 5)), color = '#000000')
- drawing = ImageDraw.Draw(c_text)
- 
- drawing.text((0,0), text, fill="#ffffff", font=font)
- c_text.putalpha(100)
- photo.paste(c_text, pos, c_text)
- photo.save(output_image_path)
- print(input_image_path)
+    messagebox.showinfo(message="Done - %d out of %d images" % (num_files_done, num_files))
+    
+def copyright_apply(input_image_path, output_image_path, text):
+    global num_files_done
+    photo = Image.open(input_image_path)
+    # Store image width and heigth
+    w, h = photo.size
+    # make the image editable
+    drawing = ImageDraw.Draw(photo)
+    font = ImageFont.truetype(config["font"], int(max(h,w)/font_size))
+    
+    # get text width and heigth
+    text = " © " + text + " "
+    text_w, text_h = drawing.textsize(text, font)
+    
+    pos = w - text_w - 50, (h - text_h) - 50
+    
+    c_text = Image.new('RGB', (text_w + 5, (text_h + 5)), color = '#000000')
+    drawing = ImageDraw.Draw(c_text)
+    
+    drawing.text((0,0), text, fill="#ffffff", font=font)
+    c_text.putalpha(100)
+    photo.paste(c_text, pos, c_text)
+    photo.save(output_image_path)
+    num_files_done += 1
+    print(input_image_path)
  
  
 folderPath = StringVar()
