@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
-from PIL import Image
+from PIL import Image, ImageOps
 from PIL import ImageDraw
 from PIL import ImageFont
 import glob
