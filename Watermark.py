@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
-from PIL import Image
+from PIL import Image, ImageOps
 from PIL import ImageDraw
 from PIL import ImageFont
 import glob
@@ -43,6 +43,7 @@ def get_folder_path():
 def process(input_image_path, output_image_path, text):
   global num_files_done
   photo = Image.open(input_image_path)
+  photo = ImageOps.exif_transpose(photo)
   # Store image width and heigth
   w, h = photo.size
   # make the image editable
