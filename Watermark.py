@@ -43,6 +43,7 @@ def get_folder_path():
 def process(input_image_path, output_image_path, text):
   global num_files_done
   photo = Image.open(input_image_path)
+  photo = ImageOps.exif_transpose(photo)
   # Store image width and heigth
   w, h = photo.size
   # make the image editable
